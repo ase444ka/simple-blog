@@ -46,5 +46,13 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "prettier": {
+    "tabWidth": 2,
+    "useTabs": false,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "arrowParens": "always",
+    "endOfLine": "lf"
+  }
 }
