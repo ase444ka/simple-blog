@@ -2,18 +2,34 @@
   <form class="new-entry-form" @submit.prevent="send">
     <h1 class="newEntry">new Entry</h1>
     <div class="form-group" :class="{ 'input-empty': !entry.title }">
-      <label for="title">Название</label>
-      <input type="text" id="title" v-model="entry.title" />
+      <label class="form-group__label" for="title">Название</label>
+      <input
+        class="form-group__input"
+        type="text"
+        id="title"
+        v-model="entry.title"
+      />
     </div>
 
     <div class="form-group" :class="{ 'input-empty': !entry.about }">
-      <label for="about">Краткое описание</label>
-      <input type="text" id="about" v-model="entry.about" />
+      <label class="form-group__label" for="about">Краткое описание</label>
+      <input
+        class="form-group__input"
+        type="text"
+        id="about"
+        v-model="entry.about"
+      />
     </div>
 
     <div class="form-group" :class="{ 'input-empty': !entry.text }">
-      <label for="text">Текст</label>
-      <textarea id="text" v-model="entry.text" cols="30" rows="10"></textarea>
+      <label class="form-group__label" for="text">Текст</label>
+      <textarea
+        class="form-group__input"
+        id="text"
+        v-model="entry.text"
+        cols="100"
+        rows="500"
+      ></textarea>
     </div>
     <button type="submit">send</button>
   </form>
@@ -64,6 +80,24 @@ export default {
 
 <style scoped lang="scss">
 .form-group {
+  &__input {
+    padding: 12px 16px;
+    height: 52px;
+    border-radius: 8px;
+    border: 2px solid lightblue;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 28px;
+    color: blue;
+    transition: 0.2s all;
+    background-color: white;
+    outline: none;
+    box-shadow: none;
+  }
+  &__label {
+    display: block;
+  }
   border: 1px solid grey;
   border-radius: 5px;
   padding: 10px 15px;

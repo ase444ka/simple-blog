@@ -7,6 +7,7 @@
       <li v-for="comment of comments" :key="comment.id">
         <p class="entry__comment__text">{{ comment.text }}</p>
         <p class="entry__comment__name">{{ comment.name }}</p>
+        <button class="entry__comment__remove" @click="removeComment(comment.id)">удалить</button>
       </li>
     </ul>
     <div v-else>Здесь пока никто ничего не написал..</div>

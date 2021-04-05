@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <h1>Мой простой блог</h1>
-    <ul v-if="entries">
+    
+    <ul v-if="entries.length">
       <li v-for="entry of entries" :key="entry.id">
         <h3>{{ entry.title }}</h3>
         <p>{{ entry.about }}</p>
@@ -13,6 +13,7 @@
         <button @click="removeEntry(entry)">удалить запись</button>
       </li>
     </ul>
+    <div v-else>Пока мой блог пустой...</div>
   </div>
 </template>
 <script>
