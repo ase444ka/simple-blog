@@ -1,7 +1,8 @@
 <template>
-  <div class="about">
+  <div class="entry">
     <h1>{{ entry.title }}</h1>
     <p>{{ entry.text }}</p>
+
     <entry-comments v-model="localComments" />
   </div>
 </template>
@@ -23,12 +24,13 @@ export default {
   },
   computed: {
     entry() {
-      return this.entries.find((entry) => entry.id == this.id);
+      return this.entries.find((entry) => entry.id == this.$route.params.id);
     },
   },
   mounted() {
     this.localComments = this.entry.comments;
   },
+
   watch: {
     localComments(value) {
       let newEntries = this.entries.map((entry) => {

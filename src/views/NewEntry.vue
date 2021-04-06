@@ -1,10 +1,14 @@
 <template>
   <form class="new-entry-form" @submit.prevent="send">
-    <h1 class="newEntry">new Entry</h1>
+    <h2 class="newEntry">
+      Новая запись
+      <button type="submit" class="badge bg-secondary">сохранить</button>
+    </h2>
+
     <div class="form-group" :class="{ 'input-empty': !entry.title }">
-      <label class="form-group__label" for="title">Название</label>
+      <label class="form-label" for="title">Название</label>
       <input
-        class="form-group__input"
+        class="form-control"
         type="text"
         id="title"
         v-model="entry.title"
@@ -12,26 +16,27 @@
     </div>
 
     <div class="form-group" :class="{ 'input-empty': !entry.about }">
-      <label class="form-group__label" for="about">Краткое описание</label>
-      <input
-        class="form-group__input"
+      <label class="form-label" for="about">Краткое описание</label>
+      <textarea
+        class="form-control"
         type="text"
         id="about"
         v-model="entry.about"
+        cols="40"
+        rows="2"
       />
     </div>
 
     <div class="form-group" :class="{ 'input-empty': !entry.text }">
-      <label class="form-group__label" for="text">Текст</label>
+      <label class="form-label" for="text">Текст</label>
       <textarea
-        class="form-group__input"
+        class="form-control"
         id="text"
         v-model="entry.text"
-        cols="100"
-        rows="500"
-      ></textarea>
+        cols="40"
+        rows="10"
+      />
     </div>
-    <button type="submit">send</button>
   </form>
 </template>
 
@@ -53,7 +58,7 @@ export default {
   },
   methods: {
     abortSending() {
-      alert('not filled');
+      alert('Вы ничего не написали :(');
     },
     send() {
       if (this.notFilledIn) {
@@ -63,8 +68,6 @@ export default {
       this.entry.date = new Date();
       localStorage.currentId = this.entry.id;
       this.entries.push(this.entry);
-      console.log(this.entry);
-      console.log(this.entries);
       localStorage.entries = JSON.stringify(this.entries);
       this.$router.push({ name: 'Success' });
     },
@@ -77,35 +80,3 @@ export default {
   },
 };
 </script>
-
-<style scoped lang="scss">
-.form-group {
-  &__input {
-    padding: 12px 16px;
-    height: 52px;
-    border-radius: 8px;
-    border: 2px solid lightblue;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 28px;
-    color: blue;
-    transition: 0.2s all;
-    background-color: white;
-    outline: none;
-    box-shadow: none;
-  }
-  &__label {
-    display: block;
-  }
-  border: 1px solid grey;
-  border-radius: 5px;
-  padding: 10px 15px;
-  margin-bottom: 24px;
-  background: lightskyblue;
-  &.input-empty {
-    border-color: red;
-    background: lightpink;
-  }
-}
-</style>
