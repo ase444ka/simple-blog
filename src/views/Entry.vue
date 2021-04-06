@@ -17,6 +17,25 @@ export default {
       localComments: [],
     };
   },
+  beforeRouteEnter(to, from, next) {
+    try {
+      next();
+    } catch (err) {
+      if (err.name !== 'NavigationDuplicated') {
+        throw err;
+      }
+    }
+    // do the actual then processing
+  },
+  beforeRouteUpdate(to, from, next) {
+    try {
+      next();
+    } catch (err) {
+      if (err.name !== 'NavigationDuplicated') {
+        throw err;
+      }
+    }
+  },
   props: {
     id: {
       required: true,

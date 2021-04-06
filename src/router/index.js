@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
-import NotFound from '../views/NotFound.vue';
 
 Vue.use(VueRouter);
 
@@ -50,11 +49,10 @@ const routes = [
       import(/* webpackChunkName: "success" */ '../views/Success.vue'),
   },
   {
-    path: '/404',
-    alias: '*',
+    path: '*',
     name: 'notFound',
-    component: NotFound,
-    props: true,
+    component: () =>
+      import(/* webpackChunkName: "not-found" */ '../views/NotFound.vue'),
   },
 ];
 

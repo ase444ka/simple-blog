@@ -35,7 +35,7 @@
 export default {
   data() {
     return {
-      entries: JSON.parse(localStorage.entries),
+      entries: JSON.parse(localStorage.entries) || [],
     };
   },
   computed: {
@@ -49,26 +49,35 @@ export default {
       return this.$route.name == 'Entry';
     },
     previous() {
-      return Math.max(
-        ...this.entries.map((entry) => {
-          return entry.id < this.$route.params.id ? entry.id : 0;
-        }),
-      );
-    },
-    next() {
-      return this.entries.some((entry) => {
-        return entry.id > this.$route.params.id;
-      })
-        ? Math.min(
-            ...this.entries
-              .filter((entry) => {
-                return entry.id > this.$route.params.id;
-              })
-              .map((entry) => entry.id),
+      return this.entries
+        ? Math.max(
+            ...this.entries.map((entry) => {
+              return entry.id < this.$route.params.id ? entry.id : 0;
+            }),
           )
         : null;
     },
+    next() {
+      return this.entries
+        ? this.entries.some((entry) => {
+            return entry.id > this.$route.params.id;
+          })
+          ? Math.min(
+              ...this.entries
+                .filter((entry) => {
+                  return entry.id > this.$route.params.id;
+                })
+                .map((entry) => entry.id),
+            )
+          : null
+        : null;
+    },
   },
+  watch: {
+    localStorage(value) {
+      this.entries = JSON.parse(value);
+    }
+  }
 };
 </script>
 
