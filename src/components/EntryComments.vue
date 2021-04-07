@@ -41,11 +41,11 @@
           удалить
         </button>
         <transition name="grow">
-        <are-you-shure
-          v-if="removingId == comment.id"
-          @agree="removeComment(comment.id)"
-          @cancel="cancelRemoving"
-        ></are-you-shure>
+          <are-you-shure
+            v-if="removingId == comment.id"
+            @agree="removeComment(comment.id)"
+            @cancel="cancelRemoving"
+          ></are-you-shure>
         </transition>
       </li>
     </transition-group>

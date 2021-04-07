@@ -23,6 +23,5 @@ export default {
       return this.$store.state.entries.find((entry) => entry.id == this.id);
     },
   },
-
 };
 </script>

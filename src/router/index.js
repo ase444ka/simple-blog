@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import store from '@/store'
+import store from '@/store';
 import Home from '../views/Home.vue';
 
 Vue.use(VueRouter);
@@ -21,7 +21,6 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "entry" */ '../views/Entry.vue'),
     beforeEnter: (to, from, next) => {
-      console.log(to);
       const exists = store.state.entries.some(
         (entry) => to.params.id == entry.id,
       );

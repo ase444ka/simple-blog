@@ -1,5 +1,4 @@
 <template>
-<transition name="fade">
   <div class="delete-confirm">
     <p class="delete-comfirm__text">Вы уверены, что хотите удалить?</p>
     <button
@@ -15,7 +14,6 @@
       Отмена
     </button>
   </div>
-</transition>
 </template>
 <script>
 export default {

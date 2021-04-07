@@ -1,6 +1,10 @@
 <template>
   <div class="home">
-    <transition-group name="grow" tag="ul" v-if="reversedEntries && reversedEntries.length">
+    <transition-group
+      name="grow"
+      tag="ul"
+      v-if="reversedEntries && reversedEntries.length"
+    >
       <li v-for="entry of reversedEntries" :key="entry.id" class="card">
         <div class="card-body">
           <h3 class="card-title">{{ entry.title }}</h3>
@@ -22,11 +26,13 @@
           >
             удалить запись
           </button>
-          <are-you-shure
-            v-if="removingId == entry.id"
-            @agree="removeEntry(entry)"
-            @cancel="cancelRemoving"
-          ></are-you-shure>
+          <transition name="grow">
+            <are-you-shure
+              v-if="removingId == entry.id"
+              @agree="removeEntry(entry)"
+              @cancel="cancelRemoving"
+            ></are-you-shure>
+          </transition>
         </div>
       </li>
     </transition-group>
@@ -45,7 +51,7 @@ export default {
   methods: {
     removeEntry(entry) {
       let id = entry.id;
-      this.$store.commit('remove', id)
+      this.$store.commit('remove', id);
     },
     beginRemoving(entry) {
       this.removingId = entry.id;
@@ -57,9 +63,8 @@ export default {
   computed: {
     reversedEntries() {
       return this.$store.state.entries.slice().reverse();
-    }
-  }
-
+    },
+  },
 };
 </script>
 
