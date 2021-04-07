@@ -44,15 +44,11 @@
 export default {
   data() {
     return {
-      entries: localStorage.entries ? JSON.parse(localStorage.entries) : [],
 
       entry: {
-        id: +localStorage.currentId + 1 || 1,
         text: '',
         about: '',
-        date: null,
         title: '',
-        comments: [],
       },
     };
   },
@@ -65,10 +61,7 @@ export default {
         this.abortSending();
         return;
       }
-      this.entry.date = new Date();
-      localStorage.currentId = this.entry.id;
-      this.entries.push(this.entry);
-      localStorage.entries = JSON.stringify(this.entries);
+      this.$store.commit('add', this.entry)
       this.$router.push({ name: 'Success' });
     },
   },

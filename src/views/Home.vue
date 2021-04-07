@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <transition-group name="grow" tag="ul" v-if="localEntries.length">
-      <li v-for="entry of localEntries" :key="entry.id" class="card">
+    <transition-group name="grow" tag="ul" v-if="$store.state.entries.length">
+      <li v-for="entry of reversedEntries" :key="entry.id" class="card">
         <div class="card-body">
           <h3 class="card-title">{{ entry.title }}</h3>
           <p class="card-text">{{ entry.about }}</p>
@@ -34,22 +34,18 @@
   </div>
 </template>
 <script>
-import { formatDate } from '@/assets/utils.js';
 import AreYouShure from '@/components/AreYouShure.vue';
 export default {
   components: { AreYouShure },
   data() {
     return {
-      entries: JSON.parse(localStorage.entries),
       removingId: null,
     };
   },
   methods: {
     removeEntry(entry) {
-      let remainingEntries = this.entries.filter(
-        (current) => current.id != entry.id,
-      );
-      this.entries = remainingEntries;
+      let id = entry.id;
+      this.$store.commit('remove', id)
     },
     beginRemoving(entry) {
       this.removingId = entry.id;
@@ -58,22 +54,12 @@ export default {
       this.removingId = null;
     },
   },
-  watch: {
-    entries(value) {
-      localStorage.entries = JSON.stringify(value);
-    },
-  },
-
   computed: {
-    localEntries() {
-      return this.entries
-        .map((entry) => ({
-          ...entry,
-          formattedDate: formatDate(entry.date),
-        }))
-        .reverse();
-    },
-  },
+    reversedEntries() {
+      return this.$store.state.entries.slice().reverse();
+    }
+  }
+
 };
 </script>
 

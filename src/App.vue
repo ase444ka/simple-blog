@@ -12,7 +12,21 @@
         >Новая запись</router-link
       >
     </div>
-    
+    <div class="entry__nav" v-if="showEntryNav">
+      <router-link
+        :class="{ entry__nav__link_disabled: !previous }"
+        :to="{ name: 'Entry', params: { id: previous } }"
+        class="card-link entry__nav__link entry__nav__link_previous"
+        >Предыдущая запись</router-link
+      >
+      <router-link
+        :class="{ entry__nav__link_disabled: !next }"
+        class="card-link entry__nav__link entry__nav__link_next"
+        :to="{ name: 'Entry', params: { id: next } }"
+        >Следующая запись</router-link
+      >
+    </div>
+
     <transition name="fade" mode="out-in">
       <router-view :key="$route.path" />
     </transition>
@@ -20,11 +34,6 @@
 </template>
 <script>
 export default {
-  data() {
-    return {
-      entries: JSON.parse(localStorage.entries) || [],
-    };
-  },
   computed: {
     showHome() {
       return this.$route.name != 'Home';
@@ -32,28 +41,63 @@ export default {
     showNewEntry() {
       return this.$route.name != 'NewEntry';
     },
-    
-  },
-  mounted() {
-    this.entries = JSON.parse(localStorage.entries) || []
+    showEntryNav() {
+      return this.$route.name == 'Entry';
+    },
+    previous() {
+      return this.$store.state.entries
+        ? Math.max(
+            ...this.$store.state.entries.map((entry) => {
+              return entry.id < this.$route.params.id ? entry.id : 0;
+            }),
+          )
+        : null;
+    },
+    next() {
+      return this.$store.state.entries.some((entry) => {
+        return entry.id > this.$route.params.id;
+      })
+        ? Math.min(
+            ...this.$store.state.entries
+              .filter((entry) => {
+                return entry.id > this.$route.params.id;
+              })
+              .map((entry) => entry.id),
+          )
+        : null;
+    },
   },
 };
 </script>
 
-<style>
+<style lang="scss">
 #nav {
   margin-bottom: 20px;
   width: 50%;
   display: flex;
   justify-content: space-between;
 }
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s;
-}
 
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
+.entry__nav {
+  display: grid;
+  grid-template-columns: 300px 300px;
+  &__link {
+    display: block;
+    cursor: pointer;
+    &_previous {
+      grid-area: 1 / 1 / 2 / 2;
+    }
+    &_next {
+      grid-area: 1 / 2 / 2 / 3;
+    }
+    &_disabled {
+      color: lightgray;
+      cursor: default;
+      &:hover {
+        color: lightgray;
+      cursor: default;
+      }
+    }
+  }
 }
 </style>
