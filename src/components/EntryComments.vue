@@ -16,7 +16,7 @@
     >
       Оставить комментарий
     </button>
-    <ul v-if="comments.length">
+    <transition-group name="grow" tag="ul" v-if="comments.length">
       <li
         v-for="comment of comments"
         :key="comment.id"
@@ -40,13 +40,15 @@
         >
           удалить
         </button>
+        <transition name="grow">
         <are-you-shure
           v-if="removingId == comment.id"
           @agree="removeComment(comment.id)"
           @cancel="cancelRemoving"
         ></are-you-shure>
+        </transition>
       </li>
-    </ul>
+    </transition-group>
     <div v-else class="entry__comments__empty-warning">
       Здесь пока никто ничего не написал..
     </div>
@@ -54,8 +56,6 @@
 </template>
 
 <script>
-let id = 0;
-
 import NewComment from './NewComment.vue';
 import AreYouShure from './AreYouShure.vue';
 export default {
@@ -63,22 +63,22 @@ export default {
 
   data() {
     return {
-      localComments: this.comments,
       wantsToComment: false,
       removingId: null,
     };
   },
 
   props: {
-    comments: {
-      type: Array,
+    id: {
       required: true,
     },
   },
 
-  model: {
-    event: 'change',
-    prop: 'comments',
+  computed: {
+    comments() {
+      return this.$store.state.entries.find((entry) => this.id == entry.id)
+        .comments;
+    },
   },
 
   methods: {
@@ -90,28 +90,18 @@ export default {
     },
     addComment(event) {
       let comment = event;
-      console.log(id);
-      event.id = id++;
-      this.localComments.push(comment);
+      this.$store.commit('addComment', { id: this.id, comment });
       this.wantsToComment = false;
     },
     removeComment(id) {
-      let removingComment = this.localComments.find(
-        (comment) => (comment.id = id),
-      );
-      this.localComments.splice(this.localComments.indexOf(removingComment), 1);
+      this.$store.commit('removeComment', { id: this.id, commentId: id });
+      this.removingId = null;
     },
     allowToComment() {
       this.wantsToComment = true;
     },
     cancelCommenting() {
       this.wantsToComment = false;
-    },
-  },
-
-  watch: {
-    localComments(value) {
-      this.$emit('change', value);
     },
   },
 };

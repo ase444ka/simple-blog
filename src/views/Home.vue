@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <transition-group name="grow" tag="ul" v-if="$store.state.entries.length">
+    <transition-group name="grow" tag="ul" v-if="reversedEntries && reversedEntries.length">
       <li v-for="entry of reversedEntries" :key="entry.id" class="card">
         <div class="card-body">
           <h3 class="card-title">{{ entry.title }}</h3>

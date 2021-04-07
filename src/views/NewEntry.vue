@@ -44,7 +44,6 @@
 export default {
   data() {
     return {
-
       entry: {
         text: '',
         about: '',
@@ -61,7 +60,7 @@ export default {
         this.abortSending();
         return;
       }
-      this.$store.commit('add', this.entry)
+      this.$store.commit('add', this.entry);
       this.$router.push({ name: 'Success' });
     },
   },

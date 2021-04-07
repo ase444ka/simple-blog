@@ -95,7 +95,7 @@ export default {
       cursor: default;
       &:hover {
         color: lightgray;
-      cursor: default;
+        cursor: default;
       }
     }
   }
