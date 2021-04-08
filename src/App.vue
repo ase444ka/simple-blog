@@ -126,7 +126,6 @@ export default {
       width: 90%;
     }
     * {
-      font-family: Andika;
       font-size: 2rem;
       padding: 5px;
       text-transform: lowercase;
@@ -152,6 +151,7 @@ export default {
       height: max-content;
     }
     h1 {
+      font-family: Andika;
       @media screen and (max-width: 400px) {
         font-size: 1rem;
       }
