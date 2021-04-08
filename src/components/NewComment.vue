@@ -27,14 +27,8 @@
     <div class="new-comment-form__warning" v-if="uncorrect">
       необходимо что-то написать
     </div>
-    <button class="btn btn-primary new-comment-form__button" type="submit">
-      отправить
-    </button>
-    <button
-      type="button"
-      class="btn btn-secondary new-comment-form__button"
-      @click="$emit('cancel')"
-    >
+    <button class="button button_red" type="submit">отправить</button>
+    <button type="button" class="button button_white" @click="$emit('cancel')">
       отмена
     </button>
   </form>
@@ -69,19 +63,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/variables';
 .new-comment-form {
   font-style: italic;
-  border: 1px solid rgba(176, 196, 222, 0.8);
   border-radius: 5px;
-  background: rgba(176, 196, 222, 0.2);
   padding: 15px 10px;
-  width: 40%;
   &__warning {
-    color: darkred;
+    color: $vine;
     margin-bottom: 10px;
   }
   &__button {
     margin-right: 20px;
+  }
+  * {
+    @extend %focus;
   }
 }
 </style>

@@ -1,18 +1,8 @@
 <template>
   <div class="delete-confirm">
     <p class="delete-comfirm__text">Вы уверены, что хотите удалить?</p>
-    <button
-      class="delete-confirm__delete btn btn-outline-danger"
-      @click="agree"
-    >
-      Удалить
-    </button>
-    <button
-      class="delete-confirm__cancel btn btn-outline-secondary"
-      @click="cancel"
-    >
-      Отмена
-    </button>
+    <button class="button button_red" @click="agree">Удалить</button>
+    <button class="button button_white" @click="cancel">Отмена</button>
   </div>
 </template>
 <script>
@@ -29,13 +19,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/variables';
 .delete-confirm {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  background: lightpink;
-  color: darkred;
-  border: 1px solid darkred;
+  color: $vine;
+  border: 1px solid $vine;
   padding: 10px;
+  margin-top: 10px;
+  box-shadow: 0 10px 20px 0 rgba(1, 1, 1, 0.15);
+  @media screen and (max-width: 300px) {
+    border: none;
+  }
 }
 </style>

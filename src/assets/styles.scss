@@ -1,0 +1,76 @@
+@import '@/assets/variables.scss';
+body {
+  background: #f8f8f8;
+  color: #444;
+  font-family: 'PT Serif';
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  
+}
+
+.grow-enter-active,
+.grow-leave-active {
+  transition: transform 0.2s ease-in;
+}
+.grow-enter,
+.grow-leave-to {
+  transform: scaleY(0);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+
+.button {
+  border: 1px solid $vine;
+  font-family: Raleway;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 10px 15px;
+  display: inline-block;
+  margin-right: 20px;
+  @media screen and (max-width: 500px) {
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    width: 250px;
+    @media screen and (max-width: 350px) {
+      width: 200px;
+      padding: 5px 10px;
+    }
+  }
+  &:hover {
+    text-decoration: none;
+    box-shadow: 0 10px 20px 0 rgba(1,1,1,.15);
+  }
+  &_red {
+    background: $vine;
+    color: white;
+    &:hover {
+      color: white;
+    }
+  }
+  &_white {
+    color: $vine;
+    background-color: white;
+    &:hover {
+      color: $vine;
+    }
+  }
+}
+
+.content {
+    min-height: 1000px;
+    @extend %width;
+}

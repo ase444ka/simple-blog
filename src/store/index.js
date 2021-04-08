@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { formatDate } from '@/assets/utils.js';
 
 Vue.use(Vuex);
 
@@ -18,7 +17,6 @@ const store = new Vuex.Store({
         id: state.lastId,
         date: new Date(),
         comments: [],
-        formattedDate: formatDate(new Date()),
         commentId: 1,
       });
       localStorage.entries = JSON.stringify(state.entries);

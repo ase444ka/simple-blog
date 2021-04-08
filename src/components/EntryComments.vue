@@ -1,5 +1,5 @@
 <template>
-  <div class="entry__comments">
+  <div class="entry__comments" id="comments">
     <h3>Комментарии</h3>
     <transition name="grow">
       <new-comment
@@ -8,9 +8,10 @@
         @cancel="cancelCommenting"
       />
     </transition>
+
     <button
       type="button"
-      class="entry__comments__button btn btn-outline-primary"
+      class="entry__comments__button button button_red"
       :class="{ entry__comments__button_active: !wantsToComment }"
       @click="allowToComment"
     >
@@ -35,7 +36,7 @@
           </div>
         </div>
         <button
-          class="entry__comments__comment__remove badge rounded-pill bg-danger"
+          class="entry__comments__comment__remove button button_white"
           @click="beginRemoving(comment.id)"
         >
           удалить
@@ -58,6 +59,8 @@
 <script>
 import NewComment from './NewComment.vue';
 import AreYouShure from './AreYouShure.vue';
+import { formatDate } from '@/assets/utils.js';
+
 export default {
   components: { NewComment, AreYouShure },
 
@@ -76,8 +79,13 @@ export default {
 
   computed: {
     comments() {
-      return this.$store.state.entries.find((entry) => this.id == entry.id)
-        .comments;
+      return this.$store.state.entries
+        .find((entry) => this.id == entry.id)
+        .comments.map((comment) =>
+          Object.assign({}, comment, {
+            formattedDate: formatDate(comment.date),
+          }),
+        );
     },
   },
 
@@ -109,12 +117,16 @@ export default {
 
 <style lang="scss" scoped>
 .entry__comments {
+  h3 {
+    margin-bottom: 30px;
+  }
   margin-top: 40px;
   padding-top: 20px;
   border-top: 1px solid lightgray;
   &__comment {
     list-style: none;
     margin: 15px 0;
+    border: none;
     &-text {
       font-style: italic;
     }
@@ -122,10 +134,10 @@ export default {
       position: absolute;
       top: 5px;
       right: 5px;
-      color: white;
     }
   }
   &__button {
+    margin-bottom: 40px;
     opacity: 0;
     transition: opacity 0.1 ease-in;
     &_active {
